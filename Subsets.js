@@ -1,35 +1,42 @@
-//Powerset.js
+//subsets.js
 
-var powerSet = function(string) {
-  //parse out duplicates and sort the string
+function clone (existingArray) {
+   var newObj = (existingArray instanceof Array) ? [] : {};
+   for (i in existingArray) {
+      if (i == 'clone') continue;
+      if (existingArray[i] && typeof existingArray[i] == "object") {
+         newObj[i] = clone(existingArray[i]);
+      } else {
+         newObj[i] = existingArray[i]
+      }
+   }
+   return newObj;
+}
 
-  var charStor = {};
-  for (var i = 0; i < string.length; i++) {
-    charStor[string[i]] = true;
-  }
+function subsets(input) {
+    //get subsets, and check sum of each one
+    var result = [[]];
+    
+    var subroutine = function(index) {
+        if (index === input.length) {
+            return;
+        } else {
 
-  var uniq = [];
+            var duplicate = JSON.parse(JSON.stringify(result));
 
-  for (var char in charStor) {
-    uniq.push(char);
-  }
+            for (var i = 0; i < duplicate.length; i++) {
+                duplicate[i].push(input[index]);
+            }
 
-  uniq = uniq.sort();
+            result = result.concat(duplicate);
 
-  var result = [];
-  var length = uniq.length;
+            subroutine(index+1);
+        }
+    };
 
-  var subroutine = function(letters, currentCharIndex) {
-    result.push(letters);
+    subroutine(0);
+    
+    return result;
+}
 
-    while (currentCharIndex < length) {
-      subroutine(letters + uniq[currentCharIndex], ++currentCharIndex);
-    }
-  }
-
-  subroutine('', 0);
-
-  return result;
-};
-
-console.log(powerSet('horse'));
+console.log(subsets([1,2,3]));
