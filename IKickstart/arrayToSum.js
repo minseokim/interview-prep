@@ -12,7 +12,7 @@ function getSum(arr) {
 function arrayToSum(input, targetNum) {
     //get arrayToSum, and check sum of each one
     var result = [[]];
-    
+
     var subroutine = function(index) {
         if (index === input.length) {
             return;
@@ -31,7 +31,7 @@ function arrayToSum(input, targetNum) {
     };
 
     subroutine(0);
-    
+
     for (var j = 0; j < result.length; j++) {
       if (getSum(result[j]) === targetNum) {
         return true;
