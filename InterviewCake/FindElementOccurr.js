@@ -31,8 +31,12 @@ function findCount(array, target) {
 
   let first = findFirstOrLast(array, target, true);
   let last = findFirstOrLast(array, target, false);
+
+  if (first === -1 && last === -1) {
+    return 0;
+  }
   return (last-first) + 1;
 };
 
-console.log(findCount([1,2,3,3,4,4,5], 4));
+console.log(findCount([1,2,3,3,4,4,5], 6));
 
