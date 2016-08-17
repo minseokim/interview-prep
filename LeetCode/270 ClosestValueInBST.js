@@ -14,7 +14,7 @@ var closestValue = function(root, target) {
 
     var closestSoFar = Infinity;
     var lastDifference = Infinity;
-    var currentDifference, closestVal;
+    var currentDifference;
 
     if (!root) {
         return null;
