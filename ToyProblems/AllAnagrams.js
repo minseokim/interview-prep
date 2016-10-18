@@ -23,5 +23,8 @@ function allAnagrams (string) {
   return anagrams;
 }
 
+
+//Alternative Solution
+  //use hash table to handle duplicate strings
 console.log(allAnagrams('abc'));
 
