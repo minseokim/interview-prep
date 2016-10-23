@@ -17,9 +17,11 @@
 // 1, 5 -> 5
 
 function leastCommonAnc(nodeA, nodeB) {
+
     //Find depth of each node
     var depthA = getDepth(nodeA);
     var depthB = getDepth(nodeB);
+
     //Determine lower and upper
     var upper = Math.max(depthA, depthB);
     var lower = Math.min(depthA, depthB);
@@ -42,9 +44,21 @@ function leastCommonAnc(nodeA, nodeB) {
         currentNode = currentNode.parent;
         upper = upper.parent;
     }
-
     return -1;
 }
+
+//Returns depth of node, 0 if root
+function getDepth(node) {
+    var currentDepth = 0;
+
+    while (node != null) {
+        currentDepth += 1;
+        node = node.parent;
+    }
+
+    return currentDepth;
+}
+
 
 function leastCommonAncestor(nodeA, nodeB) {
 
