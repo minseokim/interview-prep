@@ -32,13 +32,16 @@ var reverseList = function(head) {
 
 //Recursion
 var reverseList = function(head) {
+    //return the last node, this will be our new head
     if (!head || !head.next) {
         return head;
     }
 
-    let reversed = reverseList(head.next);
+    //new head that will be returned in the end
+    var new_head = reverseList(head.next);
 
     head.next.next = head;
     head.next = null;
-    return reversed;
+
+    return new_head;
 };

@@ -13,7 +13,6 @@ var deleteNode = function(node) {
     if (!node) {
         return null;
     }
-
     var nextNode = node.next;
     node.val = nextNode.val;
     node.next = nextNode.next;
