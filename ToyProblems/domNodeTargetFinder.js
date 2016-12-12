@@ -34,7 +34,7 @@
 //     </div>
 // </div>
 
-
+// 'use strict';
 
 let tree1 = document.getElementById("dom1");
 let tree2 = document.getElementById("dom2");

@@ -32,6 +32,7 @@ const flattenIter = (arr) => {
     if (Array.isArray(current)) {
       //flatten and push back into the copy. Can use ES6 spread operator here as well
       copy.push.apply(copy, current);
+      copy.push(...current);
     } else {
       result.push(current);
     }
@@ -40,3 +41,4 @@ const flattenIter = (arr) => {
 };
 
 console.log(flattenIter(arr));
+console.log(arr);
