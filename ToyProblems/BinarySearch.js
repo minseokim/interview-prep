@@ -1,19 +1,21 @@
-function binarySearchRecurse(array, target) {
-  var middle;
-  var search = function(array, start, end) {
-    if (start > end) {
-      return -1;
-    }
-    middle = Math.floor((start + end)/2);
-    if (array[middle] === target) {
-      return middle;
-    } else if (array[middle] < target) {
-      return search(array, middle+1, end);
-    } else {
-      return search(array, start, middle-1);
-    }
+'use strict';
+function binarySearchRecurse(array, target, start, end) {
+  start = start || 0;
+  end = end || array.length-1;
+
+  if (start > end) {
+    return -1;
   }
-  return search(array, 0, array.length-1);
+
+  let mid = Math.floor((start + end)/2);
+
+  if (array[mid] === target) {
+    return mid;
+  } else if (array[mid] < target) {
+    return binarySearchRecurse(array, target, mid+1, end);
+  } else if (array[mid] > target) {
+    return binarySearchRecurse(array, target, start, mid-1);
+  }
 }
 
 
@@ -39,5 +41,6 @@ function binarySearchIterative(array, target) {
   }
   return -1;
 }
-console.log(binarySearchRecurse([1,2,3,4,5], 2));
-console.log(binarySearchIterative([1,2,3,4,5], 2));
+
+console.log(binarySearchRecurse([1,2,3,4,5], 1));
+// console.log(binarySearchIterative([1,2,3,4,5], 2));

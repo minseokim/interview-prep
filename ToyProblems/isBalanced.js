@@ -1,26 +1,32 @@
+'use strict';
 function isBalanced (string) {
-  //go through string, use stack.
-    //If open parens, push to stack
-    //if closed parens, pop & compare with last popped
-  if (string.length === 0) {
-    return true;
-  }
+  //the last added open bracket has to match the first closing bracket being added
+  //use a stack, push open bracket into stack
+  //when encounter a closing bracket, pop stack and compare, see if they're matching
+    //return false immediately if they dont match
+  //in the end, if there are any brackets remaining in the stack, return false
+  let stack = [];
+  const bracketMatcher = new Map();
+  bracketMatcher.set('(', ')');
+  bracketMatcher.set('{', '}');
+  bracketMatcher.set('[', ']');
 
-  var bracketHolder = [];
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === '(' || string[i] === '{' || string[i] === '[') {
+      stack.push(string[i]);
+    } else if (string[i] === ')' || string[i] === '}' || string[i] === ']') {
 
-  for (var i = 0; i < string.length; i++) {
-    if (string[i] === '(') {
-      bracketHolder.push(string[i]);
-    } else if (string[i] === ')') {
-      if (bracketHolder.length === 0) {
+      let lastAdded = stack.pop(); // '('
+      if (bracketMatcher.get(lastAdded) !== string[i]) {
         return false;
       }
-      bracketHolder.pop();
     }
   }
 
-  if (bracketHolder.length) {
-    return false;
-  }
-  return true;
+  return stack.length === 0;
 }
+
+console.log(isBalanced("(x + y) - (4)"));//true
+console.log(isBalanced("(((10 ) ()) ((?)(:)))"));//true
+console.log(isBalanced("(50)("));//false
+console.log(isBalanced(""));//true
