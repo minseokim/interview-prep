@@ -1,29 +1,34 @@
-function characterFrequency (string) {
-  var characterCount = new Map();
-  var result = [];
-  var currentCount;
+//javaScript native sort() sorts by unicode
+//have to apply our own callback that sorts by descending frequency, then ascending character order(have to be done at once)
 
-  for (var i = 0; i < string.length; i++) {
-    if (characterCount.get(string[i])) {
-      characterCount.set(string[i], characterCount.get(string[i])+1);
+'use strict';
+function characterFrequency (string) {
+  const result = [];
+  const letters = new Map();
+
+  for (let i = 0; i < string.length; i++) {
+    if (letters.has(string[i])) {
+      letters.set(string[i], letters.get(string[i])+1);
     } else {
-      characterCount.set(string[i], 1);
+      letters.set(string[i], 1);
     }
   }
 
-  characterCount.forEach(function(freq, char) {
-    result.push([char, freq]);
+  letters.forEach((value, key) => {
+    result.push([key, value]);
   });
 
-  //Sort by descending freq, then ascending character
-  result.sort(function(a, b) {
+  //sort by DESCENDING order of frequency
+  //if compareFunction(a,b) < 0, a comes before b
+  result.sort((a,b) => {
+    //returns -1 if frequency of a is LESS than frequency of b
     if (a[1] > b[1]) {
       return -1;
     } else if (a[1] < b[1]) {
       return 1;
     } else if (a[0] > b[0]) {
       return 1;
-    } else if (a[0] < b[0]){
+    } else if (a[0] < b[0]) {
       return -1;
     }
   });
@@ -34,4 +39,5 @@ function characterFrequency (string) {
 //Alternative Solution : Sort it by character descending order, then use insertion sort(stable) to sort it
 //by ascending character
 
-console.log(characterFrequency("javascript"));
+console.log(characterFrequency("ppoopopomm"));
+// console.log(characterFrequency('aardvark'));

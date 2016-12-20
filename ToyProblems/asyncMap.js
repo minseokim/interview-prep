@@ -4,8 +4,9 @@
   IMPORTANT : preserve the order of the tasks in result, no matter when they fire
  */
 
- //explanation : use IIFE's to preserve a snapshot of value of i and pass it to the anonymous function that invokes each task. This allows us to add the returned value from the async function to its proper index in our resultsArray. Once we have all the values, just simply invoke the callback
-
+ /*explanation : use IIFE's to preserve a snapshot of value of i and pass it to the anonymous function that invokes each task. IIFE creates a new scope and locks in the value of i(saves state)
+ This allows us to add the returned value from the async function to its proper index in our resultsArray. Once we have all the values, just simply invoke the callback
+ */
 
 'use strict';
 var asyncMap = function(tasks, callback){
@@ -52,4 +53,5 @@ const print = (input) => {
   console.log(input);
 };
 
+asyncMap(asyncTasks, print);
 asyncMapVerTwo(asyncTasks, print);

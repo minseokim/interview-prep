@@ -21,16 +21,16 @@ const bubbleSort = (array) => {
 
   let swapped = false;
 
-  //outer loop that iterates through all elements
+  //outer loop that does n-1 passes
   for (let i = 0; i < array.length-1; i++) {
 
     //reset swapped variable to false after very iteration
     swapped = false;
     //inner loop that does the swapping, have to check from beginning
     //don't need to check the last element at every iteration
-    for (let j = 0; j < array.length-1-i; j++) {
-      if (array[j] > array[j+1]) {
-        swap(array, j, j+1);
+    for (let j = 1; j < array.length-i; j++) {
+      if (array[j] < array[j-1]) {
+        swap(array, j, j-1);
         swapped = true;
       }
     }
