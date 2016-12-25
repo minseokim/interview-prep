@@ -1,5 +1,5 @@
 
-// emitter = new Emitter
+// emitter = new Emitter();
 // sub = emitter.subscribe(‘eventName’, callback);
 // sub2 = emitter.subscribe('eventName', callback2);
 // emitter.emit(eventName, a, b, c);

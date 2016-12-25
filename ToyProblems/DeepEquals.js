@@ -1,4 +1,4 @@
-var deepEquals = function(apple, orange){
+const deepEquals = function(apple, orange){
 
   //we only care if they're both objects, or both arrays
   if ((objectChecker(apple) && objectChecker(orange)) || (Array.isArray(apple) && Array.isArray(orange))) {
