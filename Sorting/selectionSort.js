@@ -11,15 +11,14 @@ const swap = (list, a, b) => {
 const selectionSort = function(list) {
 
   for (let i = 0; i < list.length-1; i++) {
-    let currentMin = list[i];
-    console.log('currentMin : ', currentMin);
+    let currentMinIndex = i;
     console.log('i :', i);
     for (let j = i+1; j < list.length; j++) {
-      if (list[j] < currentMin) {
-        currentMin = list[j];
-        swap(list, i, j);
+      if (list[j] < list[currentMinIndex]) {
+        currentMinIndex = j;
       }
     }
+    swap(list, i, currentMinIndex);
   }
 
   return list;

@@ -41,9 +41,10 @@ const shellSort = function(list) {
 const shellSortAlt = function(list) {
   let increment = Math.floor(list.length/2);
   const length = list.length;
+
   while (increment >=1) {
     for (let i = increment; i < length; i++) {
-      for (let j = i; j >= increment; j -=increment) {
+      for (let j = i; j >= increment; j -= increment) {
         if (list[j] < list[j-increment]) {
           swap(list, j, j-increment);
         }
@@ -51,6 +52,7 @@ const shellSortAlt = function(list) {
     }
     increment = Math.floor(increment / 2);
   }
+
   return list;
 };
 
