@@ -12,7 +12,6 @@ const selectionSort = function(list) {
 
   for (let i = 0; i < list.length-1; i++) {
     let currentMinIndex = i;
-    console.log('i :', i);
     for (let j = i+1; j < list.length; j++) {
       if (list[j] < list[currentMinIndex]) {
         currentMinIndex = j;
