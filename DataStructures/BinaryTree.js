@@ -40,10 +40,9 @@ TreeNode.prototype.BFTraverse = function(fn) {
 
   const queue = [];
   queue.push(this);
-  // console.log('Queue : ', queue);
   while (queue.length !== 0) {
     const currentNode = queue.shift();
-    // console.log('current Node :', currentNode);
+
     fn(currentNode);
     //enqueue its left, then its right
     if (currentNode.getLeftChild()) {
@@ -56,14 +55,35 @@ TreeNode.prototype.BFTraverse = function(fn) {
   }
 };
 
+//Pre-Order DFTraverse
+TreeNode.prototype.DFTraverse = function(fn) {
+  if (!this.getData()) {
+    return;
+  }
+
+  fn(this);
+  if (this.getLeftChild()) {
+    this.getLeftChild().DFTraverse(fn);
+  }
+  if (this.getRightChild()) {
+    this.getRightChild().DFTraverse(fn);
+  }
+};
+
 const tree = new TreeNode('A');
 const leftChild = tree.setLeftChild('B');
 const rightChild = tree.setRightChild('C');
 const nextRightChild = rightChild.setLeftChild('D');
-rightChild.setRightChild('E');
+rightChild.setRightChild('E').setRightChild('G');
 nextRightChild.setLeftChild('F');
 nextRightChild.setRightChild('H');
 
-tree.BFTraverse((node) => {
+
+//Breadth-First
+// tree.BFTraverse((node) => {
+//   console.log(node.getData());
+// });
+
+tree.DFTraverse((node) => {
   console.log(node.getData());
 });
