@@ -1,3 +1,7 @@
+/*
+Remove Duplicates from an unsorted linked list
+*/
+
 'use strict';
 
 //Linked List implementation with head and tail pointers
@@ -7,10 +11,17 @@ function Node(val) {
   this.next = null;
 }
 
-function LinkedList() {
-  this.head = null;
-  this.tail = null;
-  this._length = 0;
+function LinkedList(val) {
+  if (!val) {
+    this.head = null;
+    this.tail = null;
+    this._length = 0;
+  } else {
+    this.head = new Node(val);
+    this.tail = this.head;
+    this._length = 1;
+  }
+
 }
 
 LinkedList.prototype.clear = function() {
@@ -117,82 +128,77 @@ LinkedList.prototype.contains = function(val) {
   return false;
 }
 
+LinkedList.prototype.print = function() {
+  let result = "";
+  let current = this.head;
 
-const list = new LinkedList();
+  while (current !== null) {
+    if (current === this.head) {
+      result += current.data;
+    } else {
+    result += " --> " + current.data;
+    }
+    current = current.next;
+  }
+  return result;
+}
 
-//Test addToFront
-console.log('-----AddtoFront Test-----');
-  //Adding to empty ll
-  list.addToFront(1);
-  console.log(list.head.data===1); //true
-  console.log(list.tail.data===1); //true
 
-  //Adding to LL of length greater than 1
-  list.addToFront(2);
-  list.addToFront(3);
-  console.log(list.head.data===3); //true
-  console.log(list.tail.data===1); //true
 
-  //Clear
-  list.clear();
-//Test addToBack
-console.log('-----AddToBack Test-----');
-  //Adding to empty ll
+/*
+Solution 1 : in O(n) time, O(n) space
+*/
+const removeDuplicates = function(head) {
+  if (!head) return null;
+  const nodesSeenSoFar = new Set();
+  let current = head;
+  let prev = null;
 
-  list.addToBack(1);
-  console.log(list.head.data===1); //true
-  console.log(list.tail.data===1); //true
+  while (current !== null) {
+    //Case1 : Unique node
+    if (nodesSeenSoFar.has(current.data) === false) {
+      nodesSeenSoFar.add(current.data);
+      prev = current;
+    } else {
+      //Case2 : Duplicate node, skip over it
+      prev.next = current.next;
+    }
+    current = current.next;
+  }
 
-  //Adding to LL of length greater than 1
+  return head;
+};
 
-  list.addToBack(2);
-  list.addToBack(3);
-  console.log(list.head.data===1); //true
-  console.log(list.tail.data===3); //true
+/* Solution 2 : O(n^2) time, O(1) space using two pointers current, and runner which checks subsequent nodes for all duplicates */
 
-//Test contains
 
-  //empty list
-  console.log(list.contains(3) === false); //true
 
-  //list has an item
-  list.addToFront(3);
-  console.log(list.contains(3) === true); // true
+const example1 = new LinkedList(1);
+example1.addToBack(1);
+example1.addToBack(2);
+example1.addToBack(4);
+example1.addToBack(4);
+example1.addToBack(2);
+example1.addToBack(1);
+console.log(example1.print());
+removeDuplicates(example1.head);
+console.log(example1.print());
 
-  //list has multiple items
-  list.addToFront(5);
-  console.log(list.contains(5) === true); // true
+const example2 = new LinkedList(4);
+example2.addToBack(5);
+example2.addToBack(6);
+example2.addToBack(3);
+example2.addToBack(3);
+example2.addToBack(3);
+example2.addToBack(3);
+example2.addToBack(1);
+console.log(example2.print());
+removeDuplicates(example2.head);
+console.log(example2.print());
 
-  //an item doesnt exist
-  console.log(list.contains(4) === true); // false
+const example3 = new LinkedList(1);
+removeDuplicates(example3.head);
+console.log(example3.print());
 
-  //Clear
-  list.clear();
 
-//Test remove
-console.log('----Remove Test-----');
 
-  //Removing head & tail
-  list.addToFront(1);
-  list.remove(1);
-  console.log(list.head === null);
-  console.log(list.tail === null);
-
-  //Removing head
-  list.addToFront(1);
-  list.addToFront(4);
-  list.remove(4);
-  console.log(list.head.data === 1);
-  console.log(list.tail.data === 1);
-
-  //Removing tail
-  list.addToBack(5);
-  list.addToBack(6);
-  list.remove(6);
-  console.log(list.tail.data === 5);
-
-  //Removing intermediate node
-  list.addToBack(7);
-  list.addToBack(9);
-  list.remove(7);
-  console.log(list.contains(7) === false);
