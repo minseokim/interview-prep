@@ -1,5 +1,7 @@
 /*
-Implement an algorithm to find the kth to last element of a singly linked list
+Delete a middle node given access only to that node
+INPUT : a -> b -> c -> d -> e -> f with node c
+Result : nothing returned, new linked list looks like a -> b -> d -> e -> f
 */
 
 'use strict';
@@ -140,72 +142,30 @@ LinkedList.prototype.print = function() {
     }
     current = current.next;
   }
+  result += " --> null";
   return result;
 }
 
-
-
-//Solution 1 : Iterative, O(n) time, O(1) Space in SINGLE PASS using 'stick method'
-const getKthToLastNode = function(head, k) {
-  if (!head || k < 0) return null;
-  let stickHead = head;
-  let stickTail = head;
-  let count = 0;
-  while (count < k && stickTail !== null) {
-    stickTail = stickTail.next;
-    count++;
+/*
+Solution : Set node's value to node's next, node's next to node's next.next
+*/
+const deleteMiddleNode = function(node) {
+  if (!node || !node.next) {
+    return false;
   }
-
-  //at this point, either stickTail is null(k is greater than length of L.L) OR stickTail is indeed k nodes apart from stickHead
-  if (stickTail === null) return -1;
-
-  while (stickTail.next !== null) {
-    stickHead = stickHead.next;
-    stickTail = stickTail.next;
-  }
-  return stickHead;
+  //assuming node.next exists since it's a middle node
+  node.data = node.next.data;
+  node.next = node.next.next;
+  return true;
 };
-
-//Solution 2 : Recursive, O(n)
-const getKthtoLastNodeRecurse = function(head, k) {
-  if (!head || k < 0) return null;
-
-  //initialize count that will be seen by the recursion stack through closure
-  //set it to -1, since we only start incrementing count starting with the last node
-  let count = -1;
-  let resultNode = null;
-
-  const recurse = function(head) {
-    if (head === null) return null;
-    recurse(head.next);
-    count+=1;
-
-    if (count === k) {
-      resultNode = head;
-    }
-  };
-
-  recurse(head);
-  return resultNode;
-}
 
 const example1 = new LinkedList(1);
 example1.addToBack(2);
 example1.addToBack(5);
 example1.addToBack(6);
-example1.addToBack(7);
+const nodeSeven = example1.addToBack(7);
 example1.addToBack(1);
 
-// console.log(getKthToLastNode(example1.head, 5));
-// console.log(getKthToLastNode(example1.head, 3));
-// console.log(getKthToLastNode(example1.head, 0));
-// console.log(getKthToLastNode(example1.head, 1));
-// console.log(getKthToLastNode(example1.head, 8));
-// console.log(getKthToLastNode(example1.head, -1));
-
-// console.log(getKthtoLastNodeRecurse(example1.head, 5));
-console.log(getKthtoLastNodeRecurse(example1.head, 3));
-console.log(getKthtoLastNodeRecurse(example1.head, 0));
-console.log(getKthtoLastNodeRecurse(example1.head, 1));
-// console.log(getKthtoLastNodeRecurse(example1.head, 8));
-// console.log(getKthtoLastNodeRecurse(example1.head, -1));
+console.log(example1.print());
+deleteMiddleNode(nodeSeven);
+console.log(example1.print());
