@@ -96,7 +96,5 @@ console.log(newPQ);
 console.log(newPQ.deleteMax());
 console.log(newPQ);
 console.log(newPQ.deleteMax());
-
 console.log(newPQ.deleteMax());
-
 console.log(newPQ.deleteMax());
