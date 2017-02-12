@@ -132,83 +132,83 @@ LinkedList.prototype.print = function() {
   return result;
 }
 
+module.exports = LinkedList;
 
+// const list = new LinkedList();
 
-const list = new LinkedList();
+// //Test addToFront
+// console.log('-----AddtoFront Test-----');
+//   //Adding to empty ll
+//   list.addToFront(1);
+//   console.log(list.head.data===1); //true
+//   console.log(list.tail.data===1); //true
 
-//Test addToFront
-console.log('-----AddtoFront Test-----');
-  //Adding to empty ll
-  list.addToFront(1);
-  console.log(list.head.data===1); //true
-  console.log(list.tail.data===1); //true
+//   //Adding to LL of length greater than 1
+//   list.addToFront(2);
+//   list.addToFront(3);
+//   console.log(list.head.data===3); //true
+//   console.log(list.tail.data===1); //true
 
-  //Adding to LL of length greater than 1
-  list.addToFront(2);
-  list.addToFront(3);
-  console.log(list.head.data===3); //true
-  console.log(list.tail.data===1); //true
+//   //Clear
+//   list.clear();
+// //Test addToBack
+// console.log('-----AddToBack Test-----');
+//   //Adding to empty ll
 
-  //Clear
-  list.clear();
-//Test addToBack
-console.log('-----AddToBack Test-----');
-  //Adding to empty ll
+//   list.addToBack(1);
+//   console.log(list.head.data===1); //true
+//   console.log(list.tail.data===1); //true
 
-  list.addToBack(1);
-  console.log(list.head.data===1); //true
-  console.log(list.tail.data===1); //true
+//   //Adding to LL of length greater than 1
 
-  //Adding to LL of length greater than 1
+//   list.addToBack(2);
+//   list.addToBack(3);
+//   console.log(list.head.data===1); //true
+//   console.log(list.tail.data===3); //true
 
-  list.addToBack(2);
-  list.addToBack(3);
-  console.log(list.head.data===1); //true
-  console.log(list.tail.data===3); //true
+// //Test contains
 
-//Test contains
+//   //empty list
+//   console.log(list.contains(3) === false); //true
 
-  //empty list
-  console.log(list.contains(3) === false); //true
+//   //list has an item
+//   list.addToFront(3);
+//   console.log(list.contains(3) === true); // true
 
-  //list has an item
-  list.addToFront(3);
-  console.log(list.contains(3) === true); // true
+//   //list has multiple items
+//   list.addToFront(5);
+//   console.log(list.contains(5) === true); // true
 
-  //list has multiple items
-  list.addToFront(5);
-  console.log(list.contains(5) === true); // true
+//   //an item doesnt exist
+//   console.log(list.contains(4) === true); // false
 
-  //an item doesnt exist
-  console.log(list.contains(4) === true); // false
+//   //Clear
+//   list.clear();
 
-  //Clear
-  list.clear();
+// //Test remove
+// console.log('----Remove Test-----');
 
-//Test remove
-console.log('----Remove Test-----');
+//   //Removing head & tail
+//   list.addToFront(1);
+//   list.remove(1);
+//   console.log(list.head === null);
+//   console.log(list.tail === null);
 
-  //Removing head & tail
-  list.addToFront(1);
-  list.remove(1);
-  console.log(list.head === null);
-  console.log(list.tail === null);
+//   //Removing head
+//   list.addToFront(1);
+//   list.addToFront(4);
+//   list.remove(4);
+//   console.log(list.head.data === 1);
+//   console.log(list.tail.data === 1);
 
-  //Removing head
-  list.addToFront(1);
-  list.addToFront(4);
-  list.remove(4);
-  console.log(list.head.data === 1);
-  console.log(list.tail.data === 1);
+//   //Removing tail
+//   list.addToBack(5);
+//   list.addToBack(6);
+//   list.remove(6);
+//   console.log(list.tail.data === 5);
 
-  //Removing tail
-  list.addToBack(5);
-  list.addToBack(6);
-  list.remove(6);
-  console.log(list.tail.data === 5);
-
-  //Removing intermediate node
-  list.addToBack(7);
-  list.addToBack(9);
-  list.remove(7);
-  console.log(list.contains(7) === false);
+//   //Removing intermediate node
+//   list.addToBack(7);
+//   list.addToBack(9);
+//   list.remove(7);
+//   console.log(list.contains(7) === false);

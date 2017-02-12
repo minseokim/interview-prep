@@ -23,21 +23,6 @@ BSTNode.prototype.insert = function(val) {
   return newNode;
 };
 
-// BSTNode.prototype.put = function(root, val) {
-//   root = root || this;
-//   //no root, return a new Node with val(NEW ROOT)
-//   if (!root || !root.data) return new Node(val);
-
-//   if (root.data === val) {
-//     root.data = val;
-//   } else if (root.data < val) {
-//     root.rightChild = root.put(root.rightChild, val);
-//   } else {
-//     root.leftChild = root.put(root.leftChild, val);
-//   }
-//   return root;
-// };
-
 /*Iterative solution of GET*/
 BSTNode.prototype.get = function(val) {
   let currentNode = this;
@@ -66,7 +51,6 @@ BSTNode.prototype.lookup = function(val) {
       return this.rightChild.lookup(val);
     }
   } else {
-
     if (this.leftChild === null) {
       return false;
     } else {
@@ -110,38 +94,62 @@ BSTNode.prototype.deleteMin = function(root) {
   return root;
 };
 
+/*
+Come back to review this one, very tricky!
+*/
 BSTNode.prototype.delete = function(root, val) {
   root === root || this;
 
-  // console.log('root currently :', root);
   if (!root) return null;
 
   if (root.data > val) {
+    //resets parent links
     root.leftChild = root.delete(root.leftChild, val);
   } else if (root.data < val) {
+    //reset parent links
     root.rightChild = root.delete(root.rightChild, val);
   } else {
-    if (root.leftChild === null) return root.rightChild;
+    //case 1 :
+    if (root.leftChild === null && root.rightChild === null) {
+      root = null;
+    }
 
-    if (root.rightChild === null) return root.leftChild;
+    //case 2 : only has rightChild child.
+    else if (root.leftChild === null) {
+      root = root.rightChild;
+    }
 
-    let tempNode = root;
+    //case 2 : only has left child
+    else if (root.rightChild === null) {
+      root = root.leftChild;
+    }
 
-    root = this.findMin(root.rightChild);
-    root.rightChild = this.deleteMin(root.rightChild);
-    root.leftChild = tempNode.leftChild;
+    else {
+      //2 children
+      //find Minimum in rightChild subtree and store it in a temp variable
+      let temp = this.findMin(root.rightChild);
+      //copy min's data into root
+      root.data = temp.data;
+
+      //delete duplicate node in rightChild subtree
+      root.rightChild = this.delete(root.rightChild, temp.data);
+    }
   }
   return root;
 };
 
-const root = new BSTNode(6);
-root.insert(7);
-root.insert(10);
-root.insert(17);
-root.insert(4);
-root.insert(5);
+module.exports = BSTNode;
+
+// const root = new BSTNode(6);
+// root.insert(7);
+// root.insert(10);
+// root.insert(17);
+// root.insert(4);
 // root.insert(5);
-console.log(root.delete(root, 4));
-console.log(root.lookup(4));
+// // root.insert(5);
+// // console.log(root.bfPrint());
+// root.delete(root, 5);
+// console.log(root.bfPrint());
+// // console.log(root.lookup(5));
 // console.log(root.get(6));
 // console.log(root.get(4));
