@@ -11,6 +11,8 @@ Given two strings, write a method to decide if one is a permutation of the other
   If size of character set if FINITE(256 Unicode), can do this in
   O(max(string1, string2)) time with O(1) space
 */
+/*jshint esversion: 6 */
+
 'use strict';
 const checkPermutation = (string1, string2) => {
   if (string1.length !== string2.length) {

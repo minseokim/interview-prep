@@ -8,7 +8,7 @@ const BSTNode = require('./BinarySearchTree');
 
 /*
 Graph class
-Undirected, using BST adjacency list
+Directed, using BST adjacency list
 */
 
 function Graph() {
@@ -36,7 +36,7 @@ Graph.prototype.contains = function(val) {
 Graph.prototype.hasEdge = function(fromNode, toNode) {
 
   let fromNodeIndex = this.vertices[fromNode];
-  console.log('fromNodeIndex :', fromNodeIndex);
+  // console.log('fromNodeIndex :', fromNodeIndex);
   //set index of fromNode to null
   if (fromNodeIndex === undefined || fromNodeIndex === null) {
     throw new Error("Node doesn't exist");
@@ -45,7 +45,7 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
   //check if edges exist
   let fromNodeEdgesRoot = this.edges[fromNodeIndex];
 
-  console.log('EDGEROOT :', fromNodeEdgesRoot);
+  // console.log('EDGEROOT :', fromNodeEdgesRoot);
 
   if (!fromNodeEdgesRoot) {
     throw new Error("Edge doesn't exist");
@@ -76,7 +76,12 @@ Graph.prototype.removeNode = function(fromNode, toNode) {
   this._edgeSize--;
 };
 
-Graph.prototype.addEdge = function(fromNode, toNode) {
+Graph.prototype.addEdge = function(fromNode, toNode, count) {
+  count === count || 0;
+
+  if (count >= 2) {
+    return;
+  }
   //get index of fromNode
   const fromNodeIndex = this.vertices[fromNode];
 
@@ -84,10 +89,6 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
   if (fromNodeIndex === undefined || fromNodeIndex === null) throw new Error("Trying to add edges between nodes that don't exist");
 
   const fromNodeEdgesRoot = this.edges[fromNodeIndex];
-  // console.log('Index :', fromNodeIndex);
-  // console.log('Adding :', fromNode);
-  // console.log('Current ROOT :', fromNodeEdgesRoot);
-  // console.log('---------------------------------');
 
   //if it doesn't exist, add toNode as root node of new BST
   if (!fromNodeEdgesRoot) {
@@ -98,7 +99,7 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
     this.edges[fromNodeIndex].insert(toNode);
   }
 
-  this._edgeSize++;
+  this._edgeSize+=1;
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode) {
@@ -129,11 +130,11 @@ const testGraph = new Graph();
 testGraph.addNode("A");
 testGraph.addNode("B");
 testGraph.addEdge("A", "B");
-console.log(testGraph.edges);
-testGraph.addNode("C");
-testGraph.addEdge("B", "C");
-// testGraph.addEdge("C", "A");
-console.log(testGraph.edges);
-// console.log(testGraph.hasEdge("A", "B"));
-console.log(testGraph.hasEdge("A", "C"));
-// console.log(testGraph);
+// console.log(testGraph.edges);
+// testGraph.addNode("C");
+// testGraph.addEdge("B", "C");
+// // testGraph.addEdge("C", "A");
+// console.log(testGraph.edges);
+// // console.log(testGraph.hasEdge("A", "B"));
+// console.log(testGraph.hasEdge("B", "A"));
+console.log(testGraph);

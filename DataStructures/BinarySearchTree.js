@@ -75,7 +75,34 @@ BSTNode.prototype.bfPrint = function() {
       queue.push(firstNode.rightChild);
     }
   }
-}
+};
+
+//Inorder Traversal Iterative
+BSTNode.prototype.dfPrint = function () {
+  const stack = [];
+  let currentNode = this;
+
+
+  while (stack.length > 0 || currentNode !== null) {
+
+    //find leftmost node with no left child
+    while (currentNode !== null) {
+      stack.push(currentNode);
+      currentNode = currentNode.leftChild;
+    }
+
+    //visit left first
+    if (stack.length) {
+      let nextNode = stack.pop();
+      //DO SOMETHING
+      console.log(nextNode.data);
+      //get right child
+      currentNode = nextNode.rightChild;
+      // console.log('currentNode :', currentNode);
+    }
+  }
+};
+
 BSTNode.prototype.findMin = function(root) {
   //start at root, keep traversing left until theres no leftchild
   let currentNode = root;
@@ -140,16 +167,21 @@ BSTNode.prototype.delete = function(root, val) {
 
 module.exports = BSTNode;
 
-// const root = new BSTNode(6);
-// root.insert(7);
-// root.insert(10);
-// root.insert(17);
-// root.insert(4);
+const root = new BSTNode(6);
+root.insert(7);
+root.insert(10);
+root.insert(17);
+root.insert(4);
+root.insert(5);
+root.insert(3);
+root.insert(1);
+root.insert(2);
+
 // root.insert(5);
-// // root.insert(5);
 // // console.log(root.bfPrint());
 // root.delete(root, 5);
 // console.log(root.bfPrint());
 // // console.log(root.lookup(5));
 // console.log(root.get(6));
 // console.log(root.get(4));
+root.dfPrint();
