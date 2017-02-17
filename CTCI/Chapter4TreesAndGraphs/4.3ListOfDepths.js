@@ -58,11 +58,6 @@ const generateLinksBFS = (root) => {
 
     while (currentParent !== null) {
 
-    // console.log('currentNode :', currentNode);
-    // console.log('Parents :', parents);
-    console.log('currentParent :', currentParent);
-    console.log('-----------------------------');
-
       if (currentParent.leftChild) {
         currentNode.addToBack(currentNode.leftChild);
       }

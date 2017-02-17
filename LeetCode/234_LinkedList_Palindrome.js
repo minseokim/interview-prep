@@ -1,6 +1,4 @@
 var isPalindrome = function(head) {
-
-    //approach 1 : use stack to push all nodes. traverse again, pop stack and compare.
     //approach 2 using recursion
 
     if (!head) {
