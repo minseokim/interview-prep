@@ -70,13 +70,15 @@ TreeNode.prototype.DFTraverse = function(fn) {
   }
 };
 
-const tree = new TreeNode('A');
-const leftChild = tree.setLeftChild('B');
-const rightChild = tree.setRightChild('C');
-const nextRightChild = rightChild.setLeftChild('D');
-rightChild.setRightChild('E').setRightChild('G');
-nextRightChild.setLeftChild('F');
-nextRightChild.setRightChild('H');
+module.exports = TreeNode;
+
+// const tree = new TreeNode('A');
+// const leftChild = tree.setLeftChild('B');
+// const rightChild = tree.setRightChild('C');
+// const nextRightChild = rightChild.setLeftChild('D');
+// rightChild.setRightChild('E').setRightChild('G');
+// nextRightChild.setLeftChild('F');
+// nextRightChild.setRightChild('H');
 
 
 //Breadth-First
@@ -84,6 +86,6 @@ nextRightChild.setRightChild('H');
 //   console.log(node.getData());
 // });
 
-tree.DFTraverse((node) => {
-  console.log(node.getData());
-});
+// tree.DFTraverse((node) => {
+//   console.log(node.getData());
+// });
