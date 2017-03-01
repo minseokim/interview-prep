@@ -13,6 +13,7 @@ base case returns null(if end < start)
 it just returns the root of a minimal tree for that array
 its left, right are recursive calls
 */
+
 const createMinimalBST = (arr, start, end) => {
   if (end < start) {
     return null;
@@ -20,7 +21,7 @@ const createMinimalBST = (arr, start, end) => {
 
   //calculate mid
   let mid = Math.floor((start + end)/2);
-  //root is just
+  //initialize a new Root with middle element
   const root = new BSTNode(arr[mid]);
   root.leftChild = createMinimalBST(arr, start, mid-1);
   root.rightChild = createMinimalBST(arr, mid+1, end);
@@ -30,4 +31,3 @@ const createMinimalBST = (arr, start, end) => {
 const arr = [0,1,3,5,7,9,12];
 
 console.log(createMinimalBST(arr, 0, arr.length-1));
-

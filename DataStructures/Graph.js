@@ -122,19 +122,34 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
   this._edgeSize--;
 };
 
-// Graph.prototype.forEachNode = function(cb) {
+//returns all its neighbors
+Graph.prototype.getNeighbors = function(source) {
 
-// };
+  if (!source) return null;
+
+  let sourceIndex = this.vertices[source];
+
+  let sourceNode = this.edges[sourceIndex];
+
+  //get all neighbors using BFS, slice out first element(Since it will be source)
+  let result = sourceNode.bfCollect().slice(1);
+  return result;
+}
+
 
 const testGraph = new Graph();
 testGraph.addNode("A");
 testGraph.addNode("B");
+testGraph.addNode("D");
 testGraph.addEdge("A", "B");
 // console.log(testGraph.edges);
-// testGraph.addNode("C");
-// testGraph.addEdge("B", "C");
-// // testGraph.addEdge("C", "A");
+testGraph.addNode("C");
+testGraph.addEdge("B", "C");
+testGraph.addEdge("A", "C");
+testGraph.addEdge("A", "D");
 // console.log(testGraph.edges);
-// // console.log(testGraph.hasEdge("A", "B"));
+// console.log(testGraph.hasEdge("A", "B"));
 // console.log(testGraph.hasEdge("B", "A"));
-console.log(testGraph);
+// console.log(testGraph);
+// console.log(testGraph.getNeighbors("A"));
+module.exports = Graph;

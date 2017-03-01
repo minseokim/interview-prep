@@ -59,14 +59,19 @@ BSTNode.prototype.lookup = function(val) {
   }
 };
 
-BSTNode.prototype.bfPrint = function() {
+//collects all nodes in the tree, breadth-first style
+BSTNode.prototype.bfCollect = function() {
 
+  const result = [];
   const queue = [];
+
   queue.push(this);
 
   while (queue.length) {
     let firstNode = queue.shift();
-    console.log(firstNode.data);
+    //add firstNode to result
+    result.push(firstNode);
+
     if (firstNode.leftChild) {
       queue.push(firstNode.leftChild);
     }
@@ -75,6 +80,7 @@ BSTNode.prototype.bfPrint = function() {
       queue.push(firstNode.rightChild);
     }
   }
+  return result;
 };
 
 //Inorder Traversal Iterative
@@ -184,4 +190,4 @@ root.insert(2);
 // // console.log(root.lookup(5));
 // console.log(root.get(6));
 // console.log(root.get(4));
-root.dfPrint();
+// console.log(root.bfCollect());

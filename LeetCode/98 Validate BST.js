@@ -69,8 +69,8 @@ var isValidBST = function(root) {
         var node = nodeAndBounds.node,
             lowerBound = nodeAndBounds.lowerBound,
             upperBound = nodeAndBounds.upperBound;
-        console.log(lowerBound);
-        console.log(upperBound);
+        // console.log(lowerBound);
+        // console.log(upperBound);
         // if this node is invalid, we return false right away
         if (node.val <= lowerBound || node.val >= upperBound) {
             return false;
