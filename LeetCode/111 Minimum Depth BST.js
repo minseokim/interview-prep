@@ -10,33 +10,27 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var minDepth = function(root) {
-    var res = [];
+const minDepth = function(root) {
+    //base case
+    if (!root) return 0;
 
-    var find = function(root, depth) {
-        if (root.left === null && root.right === null) {
-            res.push(depth);
-        }
+    //use DFS to find all depths
+    const result = [];
 
-        if (root.left) {
-            find(root.left, depth+1);
-        }
-        if (root.right) {
-            find(root.right, depth+1);
-        }
+    const getDepths = (root, depth) => {
+        if (root.left === null && root.right === null) result.push(depth);
+
+        if (root.left) getDepths(root.left, depth+1);
+
+        if (root.right) getDepths(root.right, depth+1);
     };
 
-    if (!root) {
-        return 0;
-    }
+    getDepths(root, 1);
 
-    find(root, 1);
-
-    res.sort(function(a,b) { return a-b; });
-
-    return res[0];
+    //sort result
+    result.sort((a,b) => {return a-b;});
+    return result[0];
 };
-
 
 const minDepth = function(root) {
     if (!root) return 0;
