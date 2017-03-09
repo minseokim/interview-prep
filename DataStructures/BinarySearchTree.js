@@ -147,7 +147,7 @@ BSTNode.prototype.delete = function(root, val) {
       root = null;
     }
 
-    //case 2 : only has rightChild child.
+    //case 2 : only has right child.
     else if (root.leftChild === null) {
       root = root.rightChild;
     }
