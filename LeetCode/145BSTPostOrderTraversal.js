@@ -68,7 +68,8 @@ const postOrderTraversal = function(root) {
 
 
 
-//Alternative Solution : Modify Pre-Order to go Right >> Root >> Left  then reverse the result
+//Alternative Solution slightly easier to understand
+
 const postOrderTraversal = function(root) {
     let current = root;
     const result = [];
@@ -79,8 +80,11 @@ const postOrderTraversal = function(root) {
             stack.push(current);
             current = current.left;
         } else {
+
+
             //check top's right
             let temp = stack[stack.length-1].right;
+
             if (temp === null) {
                 //this means temp is a leaf node
                 temp = stack.pop();
@@ -95,6 +99,7 @@ const postOrderTraversal = function(root) {
             } else {
                 current = temp;
             }
+
         }
     }
     return result;

@@ -40,7 +40,10 @@ var reverseList = function(head) {
     //new head that will be returned in the end
     var new_head = reverseList(head.next);
 
+    //reverse first
     head.next.next = head;
+
+    //set head's next to null.(Fixed later in the next iteration)
     head.next = null;
 
     return new_head;

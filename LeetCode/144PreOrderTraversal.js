@@ -33,9 +33,12 @@ const preorderTraversal = function(root) {
 
 /* PUSH LEFT second, because with LIFO we pop LEFT */
 const preorderTraversal = function(root) {
+
     //initialize stack
     const stack = [root];
     const result = [];
+
+    if (!root) return result;
 
     while (stack.length) {
         let node = stack.pop();

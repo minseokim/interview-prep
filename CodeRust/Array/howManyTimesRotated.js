@@ -22,13 +22,15 @@ const findRotationTimes = function(arr) {
     if (arr[low] <= arr[high]) return low;
 
     let next = (mid+1) % arr.length;
-    let prev = (mid-1 + arr.length);
+    let prev = (mid-1 + arr.length) % arr.length;
     //mid is pivot!
     if (arr[mid] < next && arr[mid] < prev) return mid;
 
-    else if (arr[mid] <= arr[high]) high = mid-1;
+    //pivot cannot exist in the left half, go right
+    else if (arr[mid] > arr[low]) low = mid+1;
 
-    else if (arr[mid] >= arr[low]) low = mid+1;
+    //pivot cannot exist in the right half, go right.
+    else if (arr[mid] < arr[high]) high = mid-1;
   }
 
   //improperly sorted array

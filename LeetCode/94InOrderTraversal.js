@@ -34,38 +34,42 @@ const inorderTraversal = function(root) {
   const stack = [];
   const result = [];
 
-  while (root || stack.length) {
+  let currentNode = root;
+
+  while (currentNode || stack.length) {
     //push left
-    while (root) {
-      stack.push(root);
-      root = root.left;
+    while (currentNode) {
+      stack.push(currentNode);
+      currentNode = currentNode.left;
     }
 
     //pop, push and then go to right
-    root = stack.pop();
-    result.push(root.val);
-    root = root.right;
+    currentNode = stack.pop();
+    result.push(currentNode.val);
+    currentNode = currentNode.right;
   }
+
   return result;
 };
 
 
 
 //Alternative Solution
-const preOrderTraversal = function(root) {
+const inOrderTraversal = function(root) {
     const result = [];
+    const stack = [];
 
     if (!root) return result;
 
-    const stack = [];
     let node = root;
 
     while (stack.length || node !== null) {
-        //if node exists, examine it and go left
+        //if node exists, go left
         if (node !== null) {
             stack.push(node);
             node = node.left;
         } else {
+            //otherwise pop it, examine it and go right
             node = stack.pop();
             result.push(node.val);
             node = node.right;
