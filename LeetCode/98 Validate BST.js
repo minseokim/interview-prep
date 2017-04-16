@@ -93,7 +93,7 @@ var isValidBST = function(root) {
 };
 
 
-//DFS Solution w/ Recursion
+//BFS Solution w/ Recursion
 var isValidBST = function(root, lowerBound, upperBound) {
     lowerBound = lowerBound || -Infinity;
     upperBound = upperBound || Infinity;
@@ -106,3 +106,4 @@ var isValidBST = function(root, lowerBound, upperBound) {
 
     return isValidBST(root.left, lowerBound, root.val) && isValidBST(root.right, root.val, upperBound);
 };
+

@@ -9,19 +9,13 @@
 // count7(123) → 0
 
 const count7 = (num) => {
-  //take last digit of num and check if it's 7
-  //if it's 7, add 1 and repeat the process
-
-  //if num is less than 1, return 0
-  if (num < 1) return 0;
-  const lastDigit = num % 10;
-  const remaining = Math.floor(num / 10);
-
-  if (lastDigit === 7) {
-    return 1 + count7(remaining);
-  } else {
-    return count7(remaining);
+  if (num < 10) {
+    return (num === 7) ? 1 : 0;
   }
+
+  let rightMostDigit = num % 10;
+  let nextNumber = Math.floor(num / 10);
+  return rightMostDigit === 7 ? 1 + count7(nextNumber) : count7(nextNumber);
 };
 
 console.log(count7(717));

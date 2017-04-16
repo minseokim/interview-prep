@@ -9,6 +9,27 @@ const swap = (list, a, b) => {
   return list;
 };
 
+
+const bubbleSortWithWall = function(list) {
+  let wall = list.length;
+
+  while (wall >= 0) {
+    let swapped = false;
+    for (let i = 0; i < wall; i++) {
+      if (list[i] > list[i+1]) {
+        swap(list, i, i+1);
+        swapped = true;
+      }
+    }
+
+    if (!swapped) {
+      console.log('breaking out early!');
+      return list;
+    }
+  }
+};
+
+
 const bubbleSort = function(list) {
 
   for (let i = 0; i < list.length-1; i++) {

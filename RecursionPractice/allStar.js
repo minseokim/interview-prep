@@ -7,15 +7,15 @@
 // allStar("ab") → "a*b"
 
 const allStar = (string, index, result) => {
-  result = result || "";
   index = index || 0;
+  result = result || "";
 
-  if (string.length-1 === index) {
-    return result + string[index];
+  if (index === string.length) {
+    return result.slice(0, result.length-1);
   }
 
-  result += string[index] + "*";
+  result += string[index] + '*';
   return allStar(string, index+1, result);
 };
 
-console.log(allStar('abc'));
+console.log(allStar('ab'));

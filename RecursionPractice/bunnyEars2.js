@@ -5,14 +5,14 @@ function bunnyEars2(num) {
   if (num === 0) {
     return 0;
   }
-  if (num % 2 === 1) {
+
+  if (num % 2 === 0) {
     return 3 + bunnyEars2(num-1);
-  } else {
+  } else if (num % 2 === 1) {
     return 2 + bunnyEars2(num-1);
   }
-
 }
 
-// console.log(bunnyEars2(0));
-// console.log(bunnyEars2(1));
+console.log(bunnyEars2(0));
+console.log(bunnyEars2(1));
 console.log(bunnyEars2(2));

@@ -6,23 +6,23 @@
 // stringClean("abbbcdd") → "abcd"
 // stringClean("Hello") → "Helo"
 
-const stringClean = (string, lastAdded, index, result) => {
-  //we build up result from empty string, and if it's a character that's not lastAdded, we
-  //concatenate it and return it.
+const stringClean = function(string, lastAdded, index, result) {
   index = index || 0;
   result = result || "";
-  lastAdded = lastAdded || "";
+  lastAdded = lastAdded || '';
 
-  if (string.length === index) {
+  //base case
+  if (index === string.length) {
     return result;
   }
 
+  //check if it's a new character thats NOT lastAdded
   if (string[index] !== lastAdded) {
     result += string[index];
     lastAdded = string[index];
   }
 
-  return stringClean(string, lastAdded, ++index, result);
+  return stringClean(string, lastAdded, index+1, result);
 };
 
-console.log(stringClean("Hellooooo"));
+console.log(stringClean("yyzzzzza"));

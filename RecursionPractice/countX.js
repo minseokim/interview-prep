@@ -5,21 +5,19 @@
 // countX("hi") → 0
 
 const countX = function(string, index) {
-  //if index is exhausted return 0
-  //if index isn't exhausted, countX again with index+1
-  //otherwise, check if current index is x, and add 1 to recursive call
   index = index || 0;
+  //base case
   if (index === string.length) {
     return 0;
   }
 
-  if (string[index] === 'x') {
-    return 1 + countX(string, index+1);
-  } else {
-    return countX(string, index+1);
-  }
+  //recursive case
+  let currentChar = string[index];
+  return currentChar === 'x' ? 1 + countX(string, index+1) : countX(string, index+1);
 };
 
 console.log(countX("xhixhix"));
+console.log(countX("xxhixx"));
+console.log(countX("hi"));
 
 

@@ -7,13 +7,15 @@
 // powerN(3, 3) → 27
 
 const powerN = (base, exp) => {
-  //if exponent is 0, return 1
-  //otherwise, multiply base with powerN(base, exp-1);
   if (exp === 0) {
     return 1;
   }
 
-  return base * powerN(base, --exp);
+  if (exp < 0) {
+    return (1/base) * powerN(base, exp+1);
+  } else {
+    return base * powerN(base, exp-1);
+  }
 };
 
-console.log(powerN(3,2));
+console.log(powerN(2,4));
