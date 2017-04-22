@@ -11,6 +11,27 @@ const allSubsetsBitSolution = function(list) {
 
 };
 
+
+const allSubsetsAlt = function(list) {
+  const solution = [];
+
+  const recurse = function(index, soFar) {
+    if (index === list.length) {
+      solution.push(soFar);
+      return;
+    }
+    let currentElem = list[index];
+
+    // console.log('soFar :', soFar);
+    recurse(index+1, soFar);
+    recurse(index+1, soFar.concat(currentElem));
+  }
+
+  recurse(0, []);
+  return solution;
+};
+
+//Alternative Solution using Recursion
 const allSubsets = function(list) {
   const result = [[]];
 
@@ -33,4 +54,5 @@ const allSubsets = function(list) {
   return result;
 };
 
-console.log(allSubsets(["a","b"]));
+// console.log(allSubsets(["a","b"]));
+console.log(allSubsetsAlt(["a", "b", "c"]));

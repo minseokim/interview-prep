@@ -20,6 +20,35 @@ Key here is that in each recursive function, we need to iterate over the remaini
 
 */
 
+
+var permute = function(A){
+  var solutions = [];
+
+  var generate = function(currentIndex, input) {
+
+      if (currentIndex === A.length) {
+          solutions.push(input.slice());
+          return;
+      }
+
+      for (var i = currentIndex; i < A.length; i++) {
+          //swap characters and call recursively
+          var temp = input[currentIndex];
+          input[currentIndex] = input[i];
+          input[i] = temp;
+
+          generate(currentIndex+1, input);
+
+          input[i] = input[currentIndex];
+          input[currentIndex] = temp;
+      }
+  }
+
+  generate(0, A);
+  return solutions;
+}
+
+
 const permuteString = function(string) {
   const result = [];
 
@@ -28,9 +57,11 @@ const permuteString = function(string) {
       result.push(used);
     } else {
       for (let i = 0; i < remaining.length; i++) {
-        let newCharToUse = used + remaining[i];
+        let newString = used + remaining[i];
         let newRemaining = remaining.slice(0, i) + remaining.slice(i+1);
-        generate(newCharToUse, newRemaining);
+        console.log('newString : ', newString);
+        console.log('newRemaining :', newRemaining);
+        generate(newString, newRemaining);
       }
     }
   };
@@ -39,4 +70,4 @@ const permuteString = function(string) {
   return result;
 };
 
-console.log(permuteString('abc'));
+console.log(permute([1,2,3]));
