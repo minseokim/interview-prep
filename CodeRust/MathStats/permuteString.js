@@ -20,27 +20,31 @@ Key here is that in each recursive function, we need to iterate over the remaini
 
 */
 
+const swap = function(list, i, j) {
+  let temp = list[i];
+  list[i] = list[j];
+  list[j] = temp;
+  return list;
+}
 
 var permute = function(A){
   var solutions = [];
 
   var generate = function(currentIndex, input) {
+    // console.log('currentIndex : ', currentIndex);
+    // console.log('input :', input);
+    // console.log('----------------------------');
 
       if (currentIndex === A.length) {
           solutions.push(input.slice());
           return;
-      }
-
-      for (var i = currentIndex; i < A.length; i++) {
-          //swap characters and call recursively
-          var temp = input[currentIndex];
-          input[currentIndex] = input[i];
-          input[i] = temp;
-
-          generate(currentIndex+1, input);
-
-          input[i] = input[currentIndex];
-          input[currentIndex] = temp;
+      } else {
+        for (var i = currentIndex; i < A.length; i++) {
+            //swap characters and call recursively
+            swap(input, currentIndex, i);
+            generate(currentIndex+1, input);
+            swap(input, currentIndex, i);
+        }
       }
   }
 
@@ -59,15 +63,36 @@ const permuteString = function(string) {
       for (let i = 0; i < remaining.length; i++) {
         let newString = used + remaining[i];
         let newRemaining = remaining.slice(0, i) + remaining.slice(i+1);
-        console.log('newString : ', newString);
-        console.log('newRemaining :', newRemaining);
         generate(newString, newRemaining);
       }
     }
   };
+
   generate('', string);
 
   return result;
+};
+
+
+const permuteAlt = function(nums) {
+  const solutions = [];
+
+  const generate = function(tempList) {
+
+    if (tempList.length === nums.length) {
+      solutions.push(tempList);
+    } else {
+      for (let i = 0; i < nums.length; i++) {
+        if (tempList.indexOf(nums[i]) !== -1) continue;
+        tempList.push(nums[i]);
+        generate(tempList);
+        tempList.pop();
+      }
+    }
+  }
+  generate([]);
+
+  return solutions;
 };
 
 console.log(permute([1,2,3]));
