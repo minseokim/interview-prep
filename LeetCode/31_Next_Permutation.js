@@ -21,14 +21,6 @@
 
 const swap = function(list, a, b) {
   //we take care of -1 by adding list's length, this takes care of the last permutation edge case
-  if (b < 0) {
-    b = b + list.length;
-  }
-
-  if (a < 0) {
-    a = a + list.length;
-  }
-
   let temp = list[a];
   list[a] = list[b];
   list[b] = temp;
@@ -52,18 +44,23 @@ const nextPermutation = function(nums) {
 
     // if (i <= 0) return false; //This is the LAST permutation since i is the largest number
 
-    while (j >= i) {
-      if (nums[j] >= nums[i-1]) {
-        break;
+    if (i > 0) {
+
+      while (j >= i) {
+        if (nums[j] >= nums[i-1]) {
+          break;
+        }
+        j--;
       }
-      j--;
+
+      //swap only if i is greater than 0
+      //This means we only swap if it's not the LAST permutation, since for the last permutatio we don't want to do anything until the reversing part.
+      swap(nums, j, i-1);
     }
 
     console.log('i : ', i);
     console.log('j :', j);
 
-
-    swap(nums, j, i-1);
 
 
     //reset j
@@ -74,9 +71,93 @@ const nextPermutation = function(nums) {
       i++;
       j--;
     }
-
 };
 
-const nums = [6,5,4,3,2,1];
-nextPermutation(nums);
+var nextPermutationAlt = function(nums) {
+    var vioIndex = nums.length - 1;
+
+    while(vioIndex > 0) {
+        if(nums[vioIndex - 1] < nums[vioIndex]) {
+            break;
+        }
+        vioIndex--;
+    }
+
+    if(vioIndex > 0) {
+        vioIndex--;
+        var first = nums.length - 1;
+        while(first > vioIndex && nums[first] <= nums[vioIndex]){
+            first--;
+        }
+
+        var temp = nums[vioIndex];
+        nums[vioIndex] = nums[first];
+        nums[first] = temp;
+
+        vioIndex++;
+    }
+
+    var end = nums.length - 1;
+
+    while(end > vioIndex) {
+        temp = nums[end];
+        nums[end] = nums[vioIndex];
+        nums[vioIndex] = temp;
+
+        end--;
+        vioIndex++;
+    }
+};
+
+
+const prevPermutation = function(nums) {
+
+    let i = nums.length-1;
+    let j = nums.length-1;
+
+
+    while (i > 0) {
+      console.log('nums[i-1] : ',nums[i-1]);
+      console.log('nums[i] :', nums[i]);
+
+      if (nums[i-1] >= nums[i]) {
+        break;
+      }
+      i--;
+    }
+
+
+    // if (i <= 0) return false; //This is the LAST permutation since i is the largest number
+
+    if (i > 0) {
+
+      while (j >= i) {
+        if (nums[j] <= nums[i-1]) {
+          break;
+        }
+        j--;
+      }
+
+      //swap only if i is greater than 0
+      //This means we only swap if it's not the LAST permutation, since for the last permutatio we don't want to do anything until the reversing part.
+      swap(nums, j, i-1);
+    }
+
+    console.log('i : ', i);
+    console.log('j :', j);
+
+    //reset j
+    j = nums.length-1;
+
+    //reverse from i till end
+    while (i < j) {
+      swap(nums, i, j);
+      i++;
+      j--;
+    }
+};
+
+
+const nums = [1,3,6,5,4];
+prevPermutation(nums);
 console.log(nums);
