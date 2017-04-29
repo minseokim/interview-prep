@@ -5,7 +5,6 @@
 //merge helper that takes two head pointers as parameters and merges them into one list and returns the new head
 
 
-
 //29 -> 23 ->82 -> 11
 const mergeSortLinkedList = function(head) {
   //if list only has single node, no need to sort it

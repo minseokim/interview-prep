@@ -13,15 +13,15 @@ const searchRotatedArrayIter = function(arr, target) {
     let mid = Math.floor((low + high) / 2);
     if (arr[mid] === target) return mid;
 
-    else if (arr[low] <= arr[high]) { //case 2 : right half is sorted
+    else if (arr[mid] < arr[high]) { //case 1 : right half is sorted
 
       //if target lies in this range
-      if (target > arr[mid] && target <= arr[high]) {
+      if (arr[mid] < target && target <= arr[high]) {
         low = mid+1;
       } else {
         high = mid-1;
       }
-    } else if (arr[low] <= arr[mid]) { //case 3 : left half is sorted
+    } else if (arr[low] < arr[mid]) { //case 2 : left half is sorted
 
       if (arr[low] <= target && target < arr[mid]) {
         high = mid-1;
@@ -67,4 +67,4 @@ const searchRotatedArray = function(arr, target, start, end) {
 };
 
 const arr = [5,6,7,8,1,2,3,4];
-console.log(searchRotatedArrayIter(arr, 6));
+console.log(searchRotatedArrayIter(arr, 8));

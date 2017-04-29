@@ -31,9 +31,6 @@ var permute = function(A){
   var solutions = [];
 
   var generate = function(currentIndex, input) {
-    // console.log('currentIndex : ', currentIndex);
-    // console.log('input :', input);
-    // console.log('----------------------------');
 
       if (currentIndex === A.length) {
           solutions.push(input.slice());

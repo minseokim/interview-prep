@@ -20,11 +20,9 @@
 
 
 const swap = function(list, a, b) {
-  //we take care of -1 by adding list's length, this takes care of the last permutation edge case
   let temp = list[a];
   list[a] = list[b];
   list[b] = temp;
-
 }
 
 
@@ -57,11 +55,6 @@ const nextPermutation = function(nums) {
       //This means we only swap if it's not the LAST permutation, since for the last permutatio we don't want to do anything until the reversing part.
       swap(nums, j, i-1);
     }
-
-    console.log('i : ', i);
-    console.log('j :', j);
-
-
 
     //reset j
     j = nums.length-1;
