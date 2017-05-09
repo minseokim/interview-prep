@@ -43,13 +43,6 @@ const isValid = function(columnsPerRow, index) {
   //we know since we've swapped #'s there can't be duplicate numbers, meaning we've already checked for same row. Since every index is a different column, we've checked for column too. All we have to do is check for ascending/descending diagonals
 
   for (let i = 0; i < index; i++) {
-    // console.log('index :', index);
-    // console.log('i :', i);
-    // console.log('rPC :', columnsPerRow);
-    // console.log('columnsPerRow[index] :', columnsPerRow[index]);
-    // console.log('columnsPerRow[i] + (i + index) :', columnsPerRow[i] + (i + index));
-    // console.log('columnsPerRow[i] + (i - index) :', columnsPerRow[i] + (i - index))
-    // console.log('---------------------------');
 
     let diagonalOffset = Math.abs(index - i);
 
@@ -78,7 +71,7 @@ const generateBoard = function(columnsPerRow) {
   for (let currentRow = 0; currentRow < columnsPerRow.length; currentRow++) {
     let columnIndex = columnsPerRow[currentRow];
     emptyRow[columnIndex] = "Q";
-    board.push(emptyRow.join(""));
+    board.push(emptyRow.join(''));
     emptyRow[columnIndex] = ".";
   }
   return board;

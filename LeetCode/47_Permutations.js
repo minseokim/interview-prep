@@ -4,6 +4,7 @@
  * @return {number[][]}
  */
 
+
 //Soution #1. Handles duplicates! Extra space complexity O(n) because we use a map to keep character count.
 const permuteUnique = function(nums) {
 
@@ -60,8 +61,6 @@ const permuteUnique = function(nums) {
 
 
 
-
-
  //Solution #2. Swaps but with checking duplicates...slightly more complicated
 const swap = function(list, a, b) {
     // console.log('a :', a, 'b :', b);
@@ -111,4 +110,5 @@ var permuteUniqueTwo = function(nums) {
     return result;
 };
 
-console.log(permuteUnique(["A", "A","B", "B"]));
+// console.log(permuteUnique(["A", "A","B", "B"]));
+console.log(permuteMe(["A", "B", "C"]));

@@ -31,12 +31,14 @@ const sumCombinations = function(target) {
     }
 
     if (sum === goal) {
-      result.push(list);
+      result.push(list.slice());
       return;
     }
 
     for (let i = 1; i < target; i++) {
-      go(sum+i, goal, list.concat(i));
+      list.push(i);
+      go(sum+i, goal, list);
+      list.pop();
     }
 
     return list;
@@ -46,4 +48,4 @@ const sumCombinations = function(target) {
   return result;
 };
 
-console.log(sumCombinations(3));
+console.log(sumCombinations(6));
