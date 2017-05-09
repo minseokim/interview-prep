@@ -27,26 +27,29 @@ const combine = function(A, B) {
     list.push(i);
   }
 
-  const recurse = function(index, soFar) {
+  const recurse = function(startIndex, soFar) {
 
     if (soFar.length === B) {
       result.push(soFar.slice());
       return;
     }
 
-    if (index === list.length) {
+    if (startIndex === list.length) {
       return;
     }
 
-    let currentElem = list[index];
-
-    soFar.push(currentElem);
-    recurse(index+1, soFar);
-    soFar.pop();
-    recurse(index+1, soFar);
+    for (let i = startIndex; i < list.length; i++) {
+      let currentElem = list[i];
+      soFar.push(currentElem);
+      recurse(i+1, soFar);
+      soFar.pop();
+    }
   }
 
   recurse(0, []);
 
   return result;
 };
+
+
+console.log(combine(4, 2));
