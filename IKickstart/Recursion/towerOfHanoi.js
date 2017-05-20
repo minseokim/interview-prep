@@ -1,6 +1,3 @@
-
-
-
 const towerOfHanoi = function(n, start, mid, end) {
         if (n === 1) {
             console.log(start, '---->', end);
