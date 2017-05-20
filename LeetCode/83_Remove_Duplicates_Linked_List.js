@@ -36,24 +36,23 @@ var deleteDuplicates = function(head) {
 };
 
 //Alternative solution using hashSet, works for non-sorted linked lists
-var deleteDuplicates = function(head) {
-    if (head) {
-        var nodesSeen = new Set();
+function removeDuplicates(node) {
+  const seenSoFar = new Set();
+  let prev = null;
+  let current = node;
 
-        var prev = null;
-        var current = head;
-        nodesSeen.add(current.val);
+  while (current !== null) {
 
-        //Look at current's next, since that's the value we want to observe
-        while (current.next) {
-            if (nodesSeen.has(current.next.val)) {
-                //skip over current's next until we find a new value
-                current.next = current.next.next;
-            } else {
-                nodesSeen.add(current.next.val);
-                current = current.next;
-            }
-        }
+    //if it's a duplicate element, connect prev to current's next
+    if (seenSoFar.has(current.val)) {
+      prev.next = current.next;
+    } else {
+      //otherwise advance prev and add to set.
+      prev = current;
+      seenSoFar.add(current.val);
     }
-    return head;
-};
+    //advance current
+    current = current.next;
+  }
+  return node;
+}

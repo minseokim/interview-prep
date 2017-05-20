@@ -9,7 +9,7 @@ const Stack = function() {
 Stack.prototype.push = function(elem) {
   let currentMin = this.getMinimum();
   //if it's a new minimum, update currentMin to elem.
-  if (currentMin === null || elem < currentMin) {
+  if (currentMin === null || elem <= currentMin) {
     currentMin = elem;
   }
   //store both elem, along with currentMin
@@ -38,35 +38,35 @@ Stack.prototype.getMinimum = function() {
 
 /* Solution using extra stack */
 
-// const Stack = function() {
-//   this.minStack = [];
-//   this.storage = [];
-//   this.min = null;
-// }
+const Stack = function() {
+  this.minStack = [];
+  this.storage = [];
+  this.min = null;
+}
 
-// Stack.prototype.push = function(elem) {
-//   if (this.min === null || elem < this.min) {
-//     this.minStack.push(elem);
-//     this.min = elem;
-//   }
-//   this.storage.push(elem);
-// }
+Stack.prototype.push = function(elem) {
+  if (this.min === null || elem < this.min) {
+    this.minStack.push(elem);
+    this.min = elem;
+  }
+  this.storage.push(elem);
+}
 
-// Stack.prototype.pop = function(elem) {
-//   let popped = this.storage.pop();
-//   if (popped === this.min) {
-//     this.minStack.pop();
-//     if (this.minStack.length === 0) {
-//       this.min = null;
-//     } else {
-//       this.min = this.minStack[this.minStack.length-1];
-//     }
-//   }
-// }
+Stack.prototype.pop = function(elem) {
+  let popped = this.storage.pop();
+  if (popped === this.min) {
+    this.minStack.pop();
+    if (this.minStack.length === 0) {
+      this.min = null;
+    } else {
+      this.min = this.minStack[this.minStack.length-1];
+    }
+  }
+}
 
-// Stack.prototype.getMinimum = function() {
-//   return this.min;
-// }
+Stack.prototype.getMinimum = function() {
+  return this.min;
+}
 
 
 
