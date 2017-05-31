@@ -22,25 +22,25 @@ const simplify = function(top, bottom) {
   return `${newTop}/${newBottom}`;
 };
 
-const fractionAddition = function(exp) {
-  let expArray = exp.split("+");
+// const fractionAddition = function(exp) {
+//   let expArray = exp.split("+");
 
-  let firstNum = expArray[0].split("/");
-  let secondNum = expArray[1].split("/");
+//   let firstNum = expArray[0].split("/");
+//   let secondNum = expArray[1].split("/");
 
-  let firstTop = Number(firstNum[0]);
-  let firstBottom = Number(firstNum[1]);
+//   let firstTop = Number(firstNum[0]);
+//   let firstBottom = Number(firstNum[1]);
 
-  let secondTop = Number(secondNum[0]);
-  let secondBottom = Number(secondNum[1]);
+//   let secondTop = Number(secondNum[0]);
+//   let secondBottom = Number(secondNum[1]);
 
-  let gcd = greatestCommonDivisor(firstBottom, secondBottom);
-  let lcm = leastCommonMultiple(firstBottom, secondBottom, gcd);
+//   let gcd = greatestCommonDivisor(firstBottom, secondBottom);
+//   let lcm = leastCommonMultiple(firstBottom, secondBottom, gcd);
 
-  let newTop = ((lcm/firstBottom) * firstTop) + ((lcm/secondBottom) * secondTop);
+//   let newTop = ((lcm/firstBottom) * firstTop) + ((lcm/secondBottom) * secondTop);
 
-  return simplify(newTop, lcm);
-};
+//   return simplify(newTop, lcm);
+// };
 
 function fractionSum(str) {
   const result = [];
