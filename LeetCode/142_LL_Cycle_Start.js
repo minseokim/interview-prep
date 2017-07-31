@@ -31,6 +31,17 @@ var detectCycle = function(head) {
         return null;
     }
 
+    //finding length of cycle
+        //initialize counter, move fast one at a time. Once we reach the anchor again, we have the length
+    let counter = 0;
+    while (fast && fast.next) {
+        fast = fast.next;
+        counter++;
+        if (fast === slow) {
+            break;
+        }
+    }
+
     var p = head;
     while (p !== fast) {
         p = p.next;

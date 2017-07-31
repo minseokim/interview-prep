@@ -1,13 +1,10 @@
-
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 
-
 //Soution #1. Handles duplicates! Extra space complexity O(n) because we use a map to keep character count.
 const permuteUnique = function(nums) {
-
   //generate a map with element : count
   const countMap = {};
   nums.forEach(function(elem) {
@@ -48,28 +45,24 @@ const permuteUnique = function(nums) {
       //decrement characterCount
       count[i] -= 1;
       //Enter next recursive call
-      generate(currentLevel+1, generated);
+      generate(currentLevel + 1, generated);
       //Put character Count back
       count[i] += 1;
     }
-
   };
   generate(0, []);
   return result;
 };
 
-
-
-
- //Solution #2. Swaps but with checking duplicates...slightly more complicated
+//Solution #2. Swaps but with checking duplicates...slightly more complicated
 const swap = function(list, a, b) {
-    // console.log('a :', a, 'b :', b);
-    // console.log('swapping : ', list[a], 'AND', list[b]);
-    // console.log('------------------------------');
-    let temp = list[a];
-    list[a] = list[b];
-    list[b] = temp;
-    return list;
+  // console.log('a :', a, 'b :', b);
+  // console.log('swapping : ', list[a], 'AND', list[b]);
+  // console.log('------------------------------');
+  let temp = list[a];
+  list[a] = list[b];
+  list[b] = temp;
+  return list;
 };
 
 const sameExist = function(list, start, end) {
@@ -83,31 +76,28 @@ const sameExist = function(list, start, end) {
 };
 
 var permuteUniqueTwo = function(nums) {
-    const result = [];
-    const storage = new Set();
+  const result = [];
 
-    const generate = function(startIndex, input) {
+  const generate = function(startIndex, input) {
+    if (startIndex === input.length) {
+      result.push(input.slice());
+      return;
+    }
+    //fix one letter, swap i with currentIndex
+    for (let i = startIndex; i < input.length; i++) {
+      //Handle duplicates
+      if (sameExist(input, startIndex, i)) {
+        continue;
+      }
+      swap(input, startIndex, i);
+      generate(startIndex + 1, input);
+      swap(input, startIndex, i);
+    }
+  };
 
-        if (startIndex === input.length) {
-            result.push(input.slice());
-            return;
-        }
-        //fix one letter, swap i with currentIndex
-        for (let i = startIndex; i < input.length; i++) {
-            //Handle duplicates
-            if (sameExist(input, startIndex, i)) {
-              continue;
-            }
-            swap(input, startIndex, i);
-            generate(startIndex+1, input);
-            swap(input, startIndex, i);
-        }
-    };
+  generate(0, nums);
 
-
-    generate(0, nums);
-
-    return result;
+  return result;
 };
 
 // console.log(permuteUnique(["A", "A","B", "B"]));

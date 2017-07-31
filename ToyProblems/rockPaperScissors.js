@@ -1,37 +1,37 @@
-'use strict';
+"use strict";
 
-function rockPaperScissorsPermutation (roundCount) {
-  const hands = ["r", "p", "s"];
-  let storage = [];
+function rockPaperScissorsPermutation(roundCount) {
+  const hands = ["rock", "paper", "scissors"];
+  let result = [];
 
-  const generator = (playedSoFar) => {
-
+  const generator = playedSoFar => {
     if (playedSoFar.length === roundCount) {
-      storage.push(playedSoFar);
+      result.push(playedSoFar.slice());
     } else {
       for (let i = 0; i < hands.length; i++) {
-        let newWord = playedSoFar.concat(hands[i]);
-        generator(newWord);
+        let nextHand = hands[i];
+        playedSoFar.push(nextHand);
+        generator(playedSoFar);
+        playedSoFar.pop();
       }
     }
   };
 
-  generator("");
-  return storage;
+  generator([]);
+  return result;
 }
 
-
-function rockPaperPermutation (rounds) {
-  if(rounds === 0 ){
+function rockPaperPermutation(rounds) {
+  if (rounds === 0) {
     return [];
-  } else if(rounds === 1){
-    return ['r', 'p', 's'];
-  } else{
-    var previousResult = rockPaperPermutation(rounds-1);
-    return previousResult.reduce(function(accum, one){
-      return accum.concat([one+'r', one+'p', one+'s']);
-    },[]);
+  } else if (rounds === 1) {
+    return ["r", "p", "s"];
+  } else {
+    var previousResult = rockPaperPermutation(rounds - 1);
+    return previousResult.reduce(function(accum, one) {
+      return accum.concat([one + "r", one + "p", one + "s"]);
+    }, []);
   }
 }
 
-console.log(rockPaperScissorsPermutation(3));
+console.log(rockPaperScissorsPermutation(2));

@@ -2,9 +2,9 @@
 Object-Oriented Adjacency List for Graphs
 */
 
-'use strict';
+"use strict";
 
-const BSTNode = require('./BinarySearchTree');
+const BSTNode = require("./BinarySearchTree");
 
 /*
 Graph class
@@ -19,7 +19,7 @@ function Graph() {
 
   this._vertexSize = 0;
   this._edgeSize = 0;
-};
+}
 
 Graph.prototype.addNode = function(val) {
   if (!this.vertices[val]) {
@@ -32,9 +32,7 @@ Graph.prototype.contains = function(val) {
   return !!this.vertices[val];
 };
 
-
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-
   let fromNodeIndex = this.vertices[fromNode];
   // console.log('fromNodeIndex :', fromNodeIndex);
   //set index of fromNode to null
@@ -86,7 +84,8 @@ Graph.prototype.addEdge = function(fromNode, toNode, count) {
   const fromNodeIndex = this.vertices[fromNode];
 
   //check if it's undefined because 0 is an edge case
-  if (fromNodeIndex === undefined || fromNodeIndex === null) throw new Error("Trying to add edges between nodes that don't exist");
+  if (fromNodeIndex === undefined || fromNodeIndex === null)
+    throw new Error("Trying to add edges between nodes that don't exist");
 
   const fromNodeEdgesRoot = this.edges[fromNodeIndex];
 
@@ -99,7 +98,7 @@ Graph.prototype.addEdge = function(fromNode, toNode, count) {
     this.edges[fromNodeIndex].insert(toNode);
   }
 
-  this._edgeSize+=1;
+  this._edgeSize += 1;
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode) {
@@ -107,13 +106,14 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
   const fromNodeIndex = this.vertices[fromNode];
 
   //check if it's undefined because 0 is an edge case
-  if (fromNodeIndex === undefined || fromNodeIndex === null) throw new Error("Trying to remove edges between nodes that don't exist");
+  if (fromNodeIndex === undefined || fromNodeIndex === null)
+    throw new Error("Trying to remove edges between nodes that don't exist");
 
   const fromNodeEdgesRoot = this.edges[fromNodeIndex];
 
   //if it doesn't exist, add toNode as root node of new BST
   if (!fromNodeEdgesRoot) {
-    throw new Error("fromNode doesn't exist!")
+    throw new Error("fromNode doesn't exist!");
   } else {
     //if it exists, simply insert it as a node on existing BST
     this.edges[fromNodeIndex].delete(fromNode);
@@ -124,7 +124,6 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 
 //returns all its neighbors
 Graph.prototype.getNeighbors = function(source) {
-
   if (!source) return null;
 
   let sourceIndex = this.vertices[source];
@@ -134,8 +133,7 @@ Graph.prototype.getNeighbors = function(source) {
   //get all neighbors using BFS, slice out first element(Since it will be source)
   let result = sourceNode.bfCollect().slice(1);
   return result;
-}
-
+};
 
 const testGraph = new Graph();
 testGraph.addNode("A");
@@ -151,5 +149,6 @@ testGraph.addEdge("A", "D");
 // console.log(testGraph.hasEdge("A", "B"));
 // console.log(testGraph.hasEdge("B", "A"));
 // console.log(testGraph);
-// console.log(testGraph.getNeighbors("A"));
+console.log(testGraph.getNeighbors("A"));
+
 module.exports = Graph;

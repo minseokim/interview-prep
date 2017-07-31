@@ -28,28 +28,21 @@ const combine = function(A, B) {
   }
 
   const recurse = function(startIndex, soFar) {
-
     if (soFar.length === B) {
       result.push(soFar.slice());
-      return;
-    }
-
-    if (startIndex === list.length) {
-      return;
     }
 
     for (let i = startIndex; i < list.length; i++) {
       let currentElem = list[i];
       soFar.push(currentElem);
-      recurse(i+1, soFar);
+      recurse(i + 1, soFar);
       soFar.pop();
     }
-  }
+  };
 
   recurse(0, []);
 
   return result;
 };
-
 
 console.log(combine(4, 2));

@@ -7,8 +7,7 @@ BFS or DFS
   BFS Can be used to find shortest path.
 */
 
-const GraphNode = require('../../DataStructures/Graph');
-
+const GraphNode = require("../../DataStructures/Graph");
 
 //DFS
 const depthFirstSearch = (root, destination, visitedSoFar) => {
@@ -40,13 +39,11 @@ const depthFirstSearch = (root, destination, visitedSoFar) => {
   return false;
 };
 
-
 //BFS
 const breadthFirstSearch = (start, end) => {
   if (start === end) return true;
 
   const queue = [];
-
 };
 
 const testGraph = new GraphNode();

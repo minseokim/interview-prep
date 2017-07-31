@@ -4,10 +4,10 @@ of all nodes at each depth
 (If you have a tree with depth D, you'll have D linked lists)
 */
 
-'use strict';
+"use strict";
 
-const LinkedList = require('../../DataStructures/LinkedListWithTail');
-const TreeNode = require('../../DataStructures/BinaryTree');
+const LinkedList = require("../../DataStructures/LinkedListWithTail");
+const TreeNode = require("../../DataStructures/BinaryTree");
 
 /*
 DFS Algorithm(Pre-Order)
@@ -23,8 +23,8 @@ const createLinkedList = (root, lists, level) => {
   let newHead = null;
 
   //if the length of lists is equal to current level,
-    //this means this is a new level to add
-    //[root1, root2]    level = 2
+  //this means this is a new level to add
+  //[root1, root2]    level = 2
   if (lists.length === level) {
     //initialize start of new linked list
     newHead = new LinkedList();
@@ -37,16 +37,15 @@ const createLinkedList = (root, lists, level) => {
   }
 
   newHead.addToBack(root);
-  createLinkedList(root.left, lists, level+1);
-  createLinkedList(root.left, lists, level+1);
+  createLinkedList(root.left, lists, level + 1);
+  createLinkedList(root.right, lists, level + 1);
 };
-
 
 /*
 BFS Algorithm
   - Logic is correct, but INFINITE LOOP AS OF RIGHT NOW.
 */
-const createLinkedListBF = (root) => {
+const createLinkedListBF = root => {
   const listOfLinks = [];
 
   let currentNode = new LinkedList();
@@ -54,10 +53,9 @@ const createLinkedListBF = (root) => {
   let parentRoot;
 
   //"Visit" the root first
-   if (root !== null) currentNode.addToBack(root);
+  if (root !== null) currentNode.addToBack(root);
 
   while (currentNode.size() > 0) {
-
     //add previous level first
     listOfLinks.push(currentNode);
     //Go to next level, grab parent root's head
@@ -81,7 +79,6 @@ const createLinkedListBF = (root) => {
 
   return listOfLinks;
 };
-
 
 // const tree = new TreeNode("A");
 // const b = tree.setLeftChild("B");

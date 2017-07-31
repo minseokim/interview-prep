@@ -34,43 +34,89 @@ const maxLengthMatchingParens = function(strExpression) {
 };
 
 
-function maxLenMatchingParen(strParenExpression) {
-  let maxStart = 0;
+function maxLengthMatchingParensAlt(s) {
+  let leftParensCount = 0;
+  let rightParensCount = 0;
   let maxLength = 0;
-  let prevStart = 0;
 
-  const stack = [];
-
-  for (let i = 0; i < strParenExpression.length; i++) {
-    let currentChar = strParenExpression[i];
-
-    if (currentChar === '(') {
-      stack.push(i);
+  //scan left to right.
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') {
+      leftParensCount++;
     } else {
-      //Case 1 : We found a closing paren ')' that doesn't have a matching opening parenthesis.
-      if (stack.length === 0) {
-        prevStart = i + 1;
-      } else {
-        //matching parenthesis found
-        //compute length of matching parenthesis
-        //1.If stack is empty, compute length from previous start position ---> full match
-        stack.pop();
-        let start = stack.length === 0 ? prevStart - 1 : stack[stack.length-1];
-        let size = i - start;
+      rightParensCount++;
+    }
 
-        if (size > maxLength) {
-          maxStart = start + 1;
-          maxLength = size;
-        }
-      }
+    //we are matching if the counts are the same
+    if (leftParensCount === rightParensCount) {
+      maxLength = Math.max(maxLength, 2 * rightParensCount);
+    } else if (rightParensCount > leftParensCount) {
+      //if there are more right parens/ or if theyre
+      leftParensCount = rightParensCount = 0;
+    }
+  }
+
+  //reset leftParens and rightParens counts
+  leftParensCount = rightParensCount = 0;
+
+  //scan right to left.
+  for (let i = s.length-1; i >= 0; i--) {
+    if (s[i] === '(') {
+      leftParensCount++;
+    } else {
+      rightParensCount++;
+    }
+
+    //we are matching if the counts are the same
+    if (leftParensCount === rightParensCount) {
+      maxLength = Math.max(maxLength, 2 * leftParensCount);
+    } else if (rightParensCount < leftParensCount) {
+      //if there are more right parens/ or if theyre
+      leftParensCount = rightParensCount = 0;
     }
   }
 
   return maxLength;
-}
+};
 
-console.log(maxLengthMatchingParens("()()()")); //6
-console.log(maxLengthMatchingParens("(((())()")); //6
-console.log(maxLengthMatchingParens("((((((")); //0
-console.log(maxLengthMatchingParens("(((())((())")); //4
-console.log(maxLengthMatchingParens("()"));
+
+// function maxLenMatchingParen(strParenExpression) {
+//   let maxStart = 0;
+//   let maxLength = 0;
+//   let prevStart = 0;
+
+//   const stack = [];
+
+//   for (let i = 0; i < strParenExpression.length; i++) {
+//     let currentChar = strParenExpression[i];
+
+//     if (currentChar === '(') {
+//       stack.push(i);
+//     } else {
+//       //Case 1 : We found a closing paren ')' that doesn't have a matching opening parenthesis.
+//       if (stack.length === 0) {
+//         prevStart = i + 1;
+//       } else {
+//         //matching parenthesis found
+//         //compute length of matching parenthesis
+//         //1.If stack is empty, compute length from previous start position ---> full match
+//         stack.pop();
+//         let start = stack.length === 0 ? prevStart - 1 : stack[stack.length-1];
+//         let size = i - start;
+
+//         if (size > maxLength) {
+//           maxStart = start + 1;
+//           maxLength = size;
+//         }
+//       }
+//     }
+//   }
+
+//   return maxLength;
+// }
+
+console.log(maxLengthMatchingParensAlt("()()()")); //6
+console.log(maxLengthMatchingParensAlt("(((())()")); //6
+console.log(maxLengthMatchingParensAlt("((((((")); //0
+console.log(maxLengthMatchingParensAlt("(((())((())")); //4
+console.log(maxLengthMatchingParensAlt("()"));
