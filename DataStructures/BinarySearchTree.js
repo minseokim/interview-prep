@@ -1,193 +1,157 @@
-'use strict';
-
-function BSTNode(val) {
-  this.data = val;
+const BinarySearchTree = function(data) {
+  this.data = data;
   this.leftChild = null;
   this.rightChild = null;
-}
-
-BSTNode.prototype.insert = function(val) {
-  if (!val) return null;
-
-  const newNode = new BSTNode(val);
-
-  if (val === this.data) {
-    console.log('NODE already exists with same value!');
-    return null;
-  } else if (val > this.data) {
-    this.rightChild === null ? this.rightChild = newNode : this.rightChild.insert(val);
-  } else if (val <= this.data) {
-    this.leftChild === null ? this.leftChild = newNode : this.leftChild.insert(val);
-  }
-
-  return newNode;
 };
 
-/*Iterative solution of GET*/
-BSTNode.prototype.get = function(val) {
-  let currentNode = this;
-  while (currentNode !== null) {
-    if (val === currentNode.data) {
-      return currentNode;
-    } else if (val > currentNode.data) {
-      currentNode = currentNode.rightChild;
-    } else {
-      currentNode = currentNode.leftChild;
-    }
-  }
-  //Doesn't exist
-  return null;
-}
-
-BSTNode.prototype.lookup = function(val) {
-  if (!val) return null;
-
+BinarySearchTree.prototype.search = function(val) {
   if (this.data === val) {
     return true;
+  } else if (this.data > val) {
+    return !!this.leftChild && this.leftChild.search(val);
   } else if (this.data < val) {
-    if (this.rightChild === null) {
-      return false;
+    return !!this.rightChild && this.rightChild.search(val);
+  }
+  return false;
+};
+
+BinarySearchTree.prototype.traverseIn = function(cb) {
+  if (this.leftChild) {
+    this.leftChild.traverseIn(cb);
+  }
+
+  cb(this);
+
+  if (this.rightChild) {
+    this.rightChild.traverseIn(cb);
+  }
+};
+
+//Pre-Order
+BinarySearchTree.prototype.traversePre = function(cb) {
+  cb(this);
+
+  if (this.leftChild) {
+    this.leftChild.traverseIn(cb);
+  }
+
+  if (this.rightChild) {
+    this.rightChild.traverseIn(cb);
+  }
+};
+
+BinarySearchTree.prototype.insert = function(val) {
+  if (this.data > val) {
+    if (this.leftChild) {
+      this.leftChild.insert(val);
     } else {
-      return this.rightChild.lookup(val);
+      this.leftChild = new BinarySearchTree(val);
     }
-  } else {
-    if (this.leftChild === null) {
-      return false;
+  } else if (this.data < val) {
+    if (this.rightChild) {
+      this.rightChild.insert(val);
     } else {
-      return this.leftChild.lookup(val);
+      this.rightChild = new BinarySearchTree(val);
     }
+  } else if (this.data === val) {
+    throw new Error("Node with this value already exists!");
   }
 };
 
-//collects all nodes in the tree, breadth-first style
-BSTNode.prototype.bfCollect = function() {
-
-  const result = [];
-  const queue = [];
-
-  queue.push(this);
-
-  while (queue.length) {
-    let firstNode = queue.shift();
-    //add firstNode to result
-    result.push(firstNode);
-
-    if (firstNode.leftChild) {
-      queue.push(firstNode.leftChild);
-    }
-
-    if (firstNode.rightChild) {
-      queue.push(firstNode.rightChild);
-    }
-  }
-  return result;
-};
-
-//Inorder Traversal Iterative
-BSTNode.prototype.dfPrint = function () {
-  const stack = [];
-  let currentNode = this;
-
-
-  while (stack.length > 0 || currentNode !== null) {
-
-    //find leftmost node with no left child
-    while (currentNode !== null) {
-      stack.push(currentNode);
-      currentNode = currentNode.leftChild;
-    }
-
-    //visit left first
-    if (stack.length) {
-      let nextNode = stack.pop();
-      //DO SOMETHING
-      console.log(nextNode.data);
-      //get right child
-      currentNode = nextNode.rightChild;
-      // console.log('currentNode :', currentNode);
-    }
-  }
-};
-
-BSTNode.prototype.findMin = function(root) {
-  //start at root, keep traversing left until theres no leftchild
-  let currentNode = root;
-
-  while (currentNode && currentNode.leftChild) {
-    currentNode = currentNode.leftChild;
-  }
-
-  return currentNode;
-};
-
-//find leftMost node, then replace it with its rightChild
-BSTNode.prototype.deleteMin = function(root) {
-  if (root.leftChild === null) return root.rightChild;
-  root.leftChild = this.deleteMin(root.leftChild);
-  return root;
-};
-
-/*
-Come back to review this one, very tricky!
-*/
-BSTNode.prototype.delete = function(root, val) {
-  root === root || this;
+//Pass the parent as an argument!
+BinarySearchTree.prototype.delete = function(val, root) {
+  //we will have to re-set 'this'(which isn't possible), so we will pass in an additional parameter called root that will be initialized to 'this'
+  root = root || this;
 
   if (!root) return null;
 
+  //Go left
   if (root.data > val) {
-    //resets parent links
-    root.leftChild = root.delete(root.leftChild, val);
+    root.leftChild = root.delete(val, root.leftChild);
+
+    //Go right
   } else if (root.data < val) {
-    //reset parent links
-    root.rightChild = root.delete(root.rightChild, val);
+    root.rightChild = root.delete(val, root.rightChild);
   } else {
-    //case 1 :
+    //We've found our node, need to delete it
+
+    //Caes 1 : Leaf node
     if (root.leftChild === null && root.rightChild === null) {
       root = null;
-    }
-
-    //case 2 : only has right child.
-    else if (root.leftChild === null) {
+    } else if (root.leftChild === null) {
+      //Case 2 : Only rightChild or Only leftChild
       root = root.rightChild;
-    }
-
-    //case 2 : only has left child
-    else if (root.rightChild === null) {
+    } else if (root.rightChild === null) {
       root = root.leftChild;
-    }
+    } else {
+      //Case 3 : Two children
 
-    else {
-      //2 children
-      //find Minimum in rightChild subtree and store it in a temp variable
-      let temp = this.findMin(root.rightChild);
-      //copy min's data into root
-      root.data = temp.data;
+      //Find minimum in rightSubtree
+      let minInRightSubTree = root.rightChild.findMin();
+      //Copy this data into root!
+      root.data = minInRightSubTree.data;
 
-      //delete duplicate node in rightChild subtree
-      root.rightChild = this.delete(root.rightChild, temp.data);
+      //now there is a duplicate node in RightSubtree, delete it(We're calling it FROM the reference of the right subtree.)
+      root.rightChild = root.delete(minInRightSubTree.data, root.rightChild);
     }
   }
+
+  //Don't forget to return root
   return root;
 };
 
-module.exports = BSTNode;
+BinarySearchTree.prototype.findMin = function() {
+  //Recursive Approach
+  // if (this.leftChild === null) {
+  //   return this;
+  // } else {
+  //   return this.leftChild.findMin();
+  // }
 
-const root = new BSTNode(6);
-root.insert(7);
-root.insert(10);
-root.insert(17);
-root.insert(4);
-root.insert(5);
-root.insert(3);
-root.insert(1);
-root.insert(2);
+  //Iterative Approach
+  let min = this;
+  while (min.leftChild !== null) {
+    min = min.leftChild;
+  }
+  return min;
+};
 
-// root.insert(5);
-// // console.log(root.bfPrint());
-// root.delete(root, 5);
-// console.log(root.bfPrint());
-// // console.log(root.lookup(5));
-// console.log(root.get(6));
-// console.log(root.get(4));
-// console.log(root.bfCollect());
+BinarySearchTree.prototype.findMax = function() {
+  //Recursive Approach
+  if (this.rightChild === null) {
+    return this;
+  } else {
+    return this.rightChild.findMax();
+  }
+
+  //Iterative Approach
+  // let max = this;
+  // while (max.rightChild !== null) {
+  //   max = max.rightChild;
+  // }
+  // return max;
+};
+
+BinarySearchTree.prototype.deleteMin = function() {
+  //if we've reached leftmost node, return its rightChild
+  //its rightChild can be either an element, or null
+  if (this.leftChild === null) {
+    return this.rightChild;
+  }
+  this.leftChild = this.leftChild.deleteMin();
+  //need to return this every time so the parent can preserve the leftChild
+  return this;
+};
+
+BinarySearchTree.prototype.deleteMax = function() {
+  //if we've reached rightMost node, return its leftChild
+  //its rightChild can be either an element, or null
+  if (this.rightChild === null) {
+    return this.leftChild;
+  }
+  this.rightChild = this.rightChild.deleteMax();
+  //need to return this every time so the parent can preserve the rightChild
+  return this;
+};
+
+module.exports = BinarySearchTree;
