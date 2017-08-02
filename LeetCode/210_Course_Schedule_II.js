@@ -45,18 +45,13 @@ var findOrder = function(numCourses, prerequisites) {
     verticesMap.get(fromVertex).add(endVertex);
   }
 
-  const visited = new Array(numCourses);
-  const onStack = new Array(numCourses);
-  visited.fill(false);
-  onStack.fill(false);
+  const visited = new Array(numCourses).fill(false);
+  const onStack = new Array(numCourses).fill(false);
 
   const buildOrder = [];
   let hasCycle = false;
 
   const dfs = currentVertex => {
-    if (hasCycle) {
-      return;
-    }
     //mark it as visited
     visited[currentVertex] = true;
     //add it to the stack.
@@ -87,6 +82,70 @@ var findOrder = function(numCourses, prerequisites) {
     if (!visited[currentVertex]) {
       dfs(currentVertex);
     }
+  }
+
+  return hasCycle === true ? [] : buildOrder;
+};
+
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {number[]}
+ */
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {number[]}
+ */
+var findOrder = function(numCourses, prerequisites) {
+  const verticesMap = new Map();
+
+  //add all edges
+  for (let edge of prerequisites) {
+    let fromVertex = edge[0];
+    let endVertex = edge[1];
+    if (!verticesMap.get(fromVertex)) {
+      verticesMap.set(fromVertex, new Set());
+    }
+    verticesMap.get(fromVertex).add(endVertex);
+  }
+
+  const visited = new Array(numCourses);
+  const onStack = new Array(numCourses);
+  visited.fill(false);
+  onStack.fill(false);
+
+  const buildOrder = [];
+  let hasCycle = false;
+
+  const dfs = currentVertex => {
+    if (onStack[currentVertex]) {
+      hasCycle = true;
+      return;
+    }
+
+    if (visited[currentVertex]) {
+      return;
+    }
+    //mark it as visited
+    visited[currentVertex] = true;
+    //add it to the stack.
+    onStack[currentVertex] = true;
+    //get neighbors
+    const neighbors = verticesMap.get(currentVertex) || [];
+
+    for (let neighbor of neighbors) {
+      dfs(neighbor);
+    }
+    //remove from onStack
+    onStack[currentVertex] = false;
+
+    //add to buildOrder(we've hit the sink vertex)
+    buildOrder.push(currentVertex);
+  };
+
+  for (let currentVertex = 0; currentVertex < numCourses; currentVertex++) {
+    dfs(currentVertex);
   }
 
   return hasCycle === true ? [] : buildOrder;

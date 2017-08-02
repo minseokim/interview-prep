@@ -44,4 +44,4 @@ const buildOrder = function(projects, dependencies) {
   return buildOrder;
 };
 
-console.log(buildOrder(projectOne, dependency));
+// console.log(buildOrder(projectOne, dependency));
